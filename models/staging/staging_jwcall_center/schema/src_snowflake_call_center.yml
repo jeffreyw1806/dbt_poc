@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: src_snowflake_samples
+    description: Source data for call center table 
+    database: SNOWFLAKE_SAMPLE_DATA
+    schema: TPCDS_SF100TCL
+    tables:
+      - name: call_center
