@@ -1,0 +1,25 @@
+version: 2
+
+macros:   
+  - name: clone_prod_tables
+    description: >
+      clone all tables in a given schema(s), which have been loaded in jsix_prod in the past number of days, as defined in an input parameter,
+       and a list of other tables defined in a seed file.
+      You can call this macro in several ways, as listed in the samples below:
+      1. To clone tables in both a table list and schema(s), such as common and netowrk, for the tables been loaded in these 2 schemas in the past 7 days,
+         run a command like this:
+         dbt run-operation clone_prod_tables --args "{'table_list':'stage_awsuser.seed_clone_table_list','schema_name':'common,network','days_look_back':'7'}" --target pre_prod  
+      2. To clone tables only in table list, you can run a command like this:
+         dbt run-operation clone_prod_tables --args "{'table_list':'stage_awsuser.seed_clone_table_list'}" --target pre_prod  
+      3. To clone tables in a single schema, such as the common schema, that have been loaded in produciton in the past 2 days, run this command:
+         dbt run-operation clone_prod_tables --args "{'schema_name':'common','days_look_back':'2'}" --target pre_prod  
+    arguments:
+      - name: table_list
+        type: string
+        description: Schema and name of the table_list tale
+      - name: schema_name
+        type: string
+        description: Schema name to clone
+      - name: days_look_back
+        type: string
+        description: Number of days to look back for tables loaded

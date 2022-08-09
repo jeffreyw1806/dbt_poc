@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: dbt_performance_measures
+    description: >
+      Data quality measurements of fields in the data warehouse.
+      In this model, we will collect dbt running history from the Redshift log table stl_query,
+      parse the data and load it into a performance measures table in Redshift. This performance 
+      measures table will keep a running hisotry of 6 months.
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - dbt_model_name
+            - dbt_run_type
+            - start_time
+
+    columns:
+      - name: userid
+        description: Database user id for dbt runner in jsix_prod
+        tests: 
+          - not_null
+
+      - name: database
+        description: Target database name, will be jsix_prod in the production environment.
+        tests: 
+          - not_null
+
+      - name: dbt_run_type
+        description: dbt run type, will be either 'run' or 'test'
+        tests: 
+          - not_null
+          - accepted_values:
+              values: ['run', 'test', 'n/a']
+
+      - name: dbt_model_name
+        description: dbt model name, such as eligibility
+        tests: 
+          - not_null
+
+      - name: model_type
+        description: Type of the dbt model, such as stage, common, medical_economics
+        tests: 
+          - not_null
+
+      - name: duration_in_minutes
+        description: How long doe the model take to run, in minutes.
+        tests: 
+          - not_null
+
+      - name: query
+        description: Name of model in the dbt project
+        tests: 
+          - not_null
+          
+      - name: start_date
+        description: Date when model starts. You can use this field as a flag to check current and historical performance information, as well as to verify if a model has run as expected. 
+        tests: 
+          - not_null
+
+      - name: start_time
+        description: Timestamp when models starts
+        tests: 
+          - not_null
+
+      - name: end_time
+        description: Timestamp when models finishes or aborts
+        tests: 
+          - not_null
+          
+      - name: job_status
+        description: Status of model
+        tests: 
+          - not_null
+          - accepted_values:
+              values: ['aborted', 'completed']
