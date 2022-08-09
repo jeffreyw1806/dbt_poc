@@ -23,3 +23,19 @@ macros:
       - name: days_look_back
         type: string
         description: Number of days to look back for tables loaded
+        
+  - name: test_unique_test_on_distinct_columns
+    description: >
+        Ensure that out of distinct columns, the selected columns are unique. Use this as a test in yml files, similiar to the dbt built in test unique_combination_of_columns
+    arguments:
+      - name: model
+        type: string
+      - name: combination_of_unique_columns
+        type: string
+        description: list of unique columns to test on.
+      - name: combination_of_unique_columns
+        type: string
+        description: list of distinct columns, selected as a CTE on the source model.
+      - name: quote_columns
+        type: string
+        description: Indicator if columns are quoted or not.
