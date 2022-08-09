@@ -3,7 +3,7 @@ Welcome to Jeffrey's dbt poc project!
 ### Using the starter project
 
 This project contains some of the POC models I built in my spare time, when working with others in dbt slack
-Please notice that I used Redshift and Snowfake as the databsae, and this project is not related to my current and past jobs.
+Please notice that I used Redshift and Snowfake as the databsae, and this project is not related to my current or past jobs.
 
 list of POCs:
 
